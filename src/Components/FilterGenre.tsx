@@ -19,8 +19,8 @@ const FilterGenre: FC<IFilter> = ({setFilter, allGenres}) =>{
     return <div className="checkbox-container">
         {
             
-        allGenres.sort().map(genre =>{
-            return <div className="checkbox-group"><input type="checkbox" name={genre} value={genre} onChange={handleChange}/>
+        allGenres.sort().map((genre,i) =>{
+            return <div className="checkbox-group" key={i}><input type="checkbox" name={genre} value={genre} onChange={handleChange}/>
             <label htmlFor={genre} >{genre}</label><br />
             </div>
         })

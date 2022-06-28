@@ -5,6 +5,7 @@
     overflow-wrap:break-word;
     width: 200px;
     padding: 10px;
+    max-height: 600px;
 }
 .movie-card:hover{
     cursor: pointer;
@@ -13,4 +14,8 @@
 .movie-img{
     width: 200px;
     
+}
+
+.movie-details{
+    overflow-y:scroll;
 }

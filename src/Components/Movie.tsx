@@ -1,4 +1,4 @@
-import {FC, SyntheticEvent, useState} from "react"
+import {FC, SyntheticEvent, useEffect, useState} from "react"
 import {MovieInfo} from "./Homepage";
 import "./Movie.css"
 interface IMovieProps{
@@ -6,27 +6,63 @@ interface IMovieProps{
     id:string;
     genres:string[]
 }
+interface IMovieData{
+    description: string;
+    duration: number;
+    genres: string[];
+    moods: string[];
+    releaseDate: string
+    releaseYear: number;
+    title: string;
+    topCast: ICast[]
+}
 
-
+type ICast = {
+    name: string;
+    characterName: string;
+}
 const Movie: FC<IMovieProps> = ({title,id, genres}) =>{
     const [openDetail, setOpenDetail] = useState(false)
+    const [movieData, setMovieData] = useState<IMovieData>()
     const toggleDetails = () =>{
         setOpenDetail(!openDetail)
     }
+    const calculateDuration = ()=>{
+        let total = movieData?.duration ? movieData?.duration : 0
+        let hours = Math.floor(total / 3600);
+        total %= 3600;
+        let minutes = Math.floor(total / 60);
+        let seconds = total % 60;
 
+        console.log(movieData)
+        return `${hours}hr(s) ${minutes} min ${seconds}sec`
+    }
+    useEffect(()=>{
+        fetch(`https://code-challenge.spectrumtoolbox.com/api/movies/${id}`,{
+            headers: {
+                Authorization: "Api-Key q3MNxtfep8Gt",
+                 }
+                }).then(res=> res.json()).then(data=> setMovieData(data.data))
+
+    },[])
     return <div className="movie-card" onClick={toggleDetails}>
         <img className="movie-img" src={process.env.PUBLIC_URL + `/Assets/PosterImgs/${id}.jpeg`} onError={(e)=> (e.target as HTMLImageElement).src = process.env.PUBLIC_URL + `/Assets/PosterImgs/defaultImage.jpeg`}/>
         {
             openDetail &&
-            <div>
-                <p>~GENRES~</p>
+            <div className="movie-details">
+                <p>Genres: {genres.join(", ")}</p>
+                <p>Length: {calculateDuration()}</p>
+                <p>Release Date: {movieData?.releaseDate}</p>
+                <p>Release Year: {movieData?.releaseYear}</p>
+                <p>Description: {movieData?.description}</p>
+                <div> ~~ Casts ~~~
                 {
-                    
-                    genres.map( genre=> {
-                        return <p>{genre}</p>
+                
+                    movieData?.topCast.map(cast=>{
+                        return <p>{cast.characterName} played by {cast.name}</p>
                     })
-                    
                 }
+                </div>
             </div>
         }
         <h1>{title}</h1>
