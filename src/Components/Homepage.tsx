@@ -1,5 +1,5 @@
-import {FC, useEffect, useState} from "react"
-import Searchbar from "./Searchbar"
+import {useEffect, useState} from "react"
+import Searchbar from "./Searchbar/Searchbar"
 import Movie from "./Movie"
 import FilterGenre from "./FilterGenre"
 import "./Homepage.css"
@@ -10,7 +10,7 @@ export interface MovieInfo{
     genres: string[]
 }
 
-const Homepage:FC = () =>{
+const Homepage = () =>{
     const [data, setData] = useState<MovieInfo[]>([])
     const [movieList, setMovieList] = useState<MovieInfo[]>([])
     const [value, setValue] = useState<string>("")
@@ -39,23 +39,10 @@ const Homepage:FC = () =>{
 
         setMovieList(
             data.filter(movieItem=>{
-                if(value.length === 0 && filter.length === 0){   
-                    return true
-                }
-                if(value.length > 0 && filter.length === 0){
-                    return movieItem.title.toLowerCase().includes(value)
-                }
-                if(value.length === 0 && filter.length > 0){
-                    return filter.every(genre=> {
-                        return movieItem.genres.indexOf(genre) !== -1;
-                    })
-                }
-                else{
-                    //return movieItem.genres.every(genre=> filter.includes(genre)) && movieItem.title.toLowerCase().includes(value)
-                    return filter.every(genre=> {
-                        return movieItem.genres.indexOf(genre) !== -1;
-                    }) && movieItem.title.toLowerCase().includes(value)
-                }
+                //return movieItem.genres.every(genre=> filter.includes(genre)) && movieItem.title.toLowerCase().includes(value)
+                return filter.every(genre=> {
+                    return movieItem.genres.indexOf(genre) !== -1;
+                }) && movieItem.title.toLowerCase().includes(value)
             })
         )
     }, [value, filter])
