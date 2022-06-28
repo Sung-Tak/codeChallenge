@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react"
+import {useEffect, useState} from "react"
 import "./Movie.css"
 interface IMovieProps{
     title:string;
@@ -20,7 +20,7 @@ type ICast = {
     name: string;
     characterName: string;
 }
-const Movie: FC<IMovieProps> = ({title,id, genres}) =>{
+const Movie = ({title,id, genres}:IMovieProps) =>{
     const [openDetail, setOpenDetail] = useState(false)
     const [movieData, setMovieData] = useState<IMovieData>()
     const toggleDetails = () =>{
