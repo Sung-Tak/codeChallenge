@@ -27,6 +27,7 @@ const Homepage:FC = () =>{
             }).then(res=> res.json()).then(movies=> {
                 setData(movies.data)
                 setMovieList(movies.data)
+                //console.log(movies.data)
                 let genres: string[] = []
                 movies.data.map((movieItem: any)=> movieItem.genres.map((genreItem: string)=> genres.push(genreItem)))
                 setAllGenres(genres.filter((genre, i, arr) => arr.indexOf(genre) === i))

@@ -14,7 +14,12 @@ const Searchbar:FC<IValues> = ({setValue}) =>{
         setValue(e.currentTarget.value.toLowerCase())
     }
 
-    return <input style={{position:"fixed", height:"2em", width:"400px", fontSize: "1.5em", left:"40%"}} type="text" onChange={handleChange} value={search}></input>
+    return <input 
+    style={{position:"fixed", height:"2em", width:"400px", fontSize: "1.5em", left:"40%"}} 
+    type="text" onChange={handleChange} 
+    value={search}
+    placeholder="Search..."
+    ></input>
 
 }
 export default Searchbar

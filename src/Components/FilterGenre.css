@@ -2,8 +2,8 @@
     width: 100px;
     display:flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 1em;
 }
-.checkbox-group{
-
+.checkbox-group:hover{
+    outline: 1px black solid;
 }
