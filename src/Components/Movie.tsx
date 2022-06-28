@@ -66,7 +66,10 @@ const Movie = ({title,id, genres}:IMovieProps) =>{
                 </div>
             </div>
         }
-        <h1>{title}</h1>
+        {
+            !openDetail &&
+            <h1>{title}</h1>
+        }
     </div>
 }
 

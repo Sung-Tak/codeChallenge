@@ -6,10 +6,15 @@
     width: 200px;
     padding: 10px;
     max-height: 600px;
+    border-radius:10px;
 }
 .movie-card:hover{
     cursor: pointer;
     outline:1px black solid;
+    transform:scale(1.2);
+    animation-name: popOut;
+    animation-duration: .3s;
+    background-color: rgb(250, 255, 208);
 }
 .movie-img{
     width: 200px;
@@ -18,4 +23,13 @@
 
 .movie-details{
     overflow-y:scroll;
+}
+
+@keyframes popOut {
+    from{
+        transform:scale(1)
+    }
+    to{
+        transform:scale(1.2)
+    }
 }

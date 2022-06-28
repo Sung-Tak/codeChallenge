@@ -16,11 +16,15 @@ const FilterGenre: FC<IFilter> = ({setFilter, allGenres}) =>{
             return [...prev, val]
         })
     }
+    /*
     const handleClear = (e:React.MouseEvent<HTMLButtonElement>) => {
         console.log(e.target)
     }
+    */
     return <div className="checkbox-container">
-        <button onClick={handleClear}>Clear filters</button>
+        {
+            //<button onClick={handleClear}>Clear filters</button>
+        }
         {
             
         allGenres.sort().map((genre,i) =>{
