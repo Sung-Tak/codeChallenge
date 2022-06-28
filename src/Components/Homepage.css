@@ -1,0 +1,9 @@
+.movie-container{
+    display:flex;
+    flex-wrap:wrap;
+    width: 1000px;
+}
+.layout{
+    display:flex;
+    padding-top: 3em;
+}

@@ -1,0 +1,16 @@
+
+.movie-card{
+    display:flex;
+    flex-direction: column;
+    overflow-wrap:break-word;
+    width: 200px;
+    padding: 10px;
+}
+.movie-card:hover{
+    cursor: pointer;
+    outline:1px black solid;
+}
+.movie-img{
+    width: 200px;
+    
+}
