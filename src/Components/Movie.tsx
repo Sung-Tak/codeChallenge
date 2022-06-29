@@ -1,18 +1,20 @@
 import {useEffect, useState} from "react"
 import "./Movie.css"
 interface IMovieProps{
-    title:string;
-    id:string;
+    title:string
+    id:string
     genres:string[]
+    setCurrentMovieID: React.Dispatch<React.SetStateAction<string>>
+    currentMovieID: string
 }
 interface IMovieData{
-    description: string;
-    duration: number;
-    genres: string[];
-    moods: string[];
+    description: string
+    duration: number
+    genres: string[]
+    moods: string[]
     releaseDate: string
-    releaseYear: number;
-    title: string;
+    releaseYear: number
+    title: string
     topCast: ICast[]
 }
 
@@ -20,11 +22,12 @@ type ICast = {
     name: string;
     characterName: string;
 }
-const Movie = ({title,id, genres}:IMovieProps) =>{
-    const [openDetail, setOpenDetail] = useState(false)
+const Movie = ({title,id, genres, setCurrentMovieID, currentMovieID}:IMovieProps) =>{
+    //const [openDetail, setOpenDetail] = useState(false)
     const [movieData, setMovieData] = useState<IMovieData>()
     const toggleDetails = () =>{
-        setOpenDetail(!openDetail)
+        currentMovieID === id ? setCurrentMovieID("") : setCurrentMovieID(id)
+        
     }
     const calculateDuration = ()=>{
         let total = movieData?.duration ? movieData?.duration : 0
@@ -50,7 +53,7 @@ const Movie = ({title,id, genres}:IMovieProps) =>{
         alt={"Movie Poster"}
         />
         {
-            openDetail &&
+            currentMovieID === id &&
             <div className="movie-details">
                 <p>Genres: {genres.join(", ")}</p>
                 <p>Length: {calculateDuration()}</p>
@@ -67,7 +70,7 @@ const Movie = ({title,id, genres}:IMovieProps) =>{
             </div>
         }
         {
-            !openDetail &&
+            currentMovieID !== id &&
             <h1>{title}</h1>
         }
     </div>
