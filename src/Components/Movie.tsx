@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react"
+import MovieDetails from "./MovieDetails"
 import "./Movie.css"
 interface IMovieProps{
     title:string
@@ -7,44 +8,14 @@ interface IMovieProps{
     setCurrentMovieID: React.Dispatch<React.SetStateAction<string>>
     currentMovieID: string
 }
-interface IMovieData{
-    description: string
-    duration: number
-    genres: string[]
-    moods: string[]
-    releaseDate: string
-    releaseYear: number
-    title: string
-    topCast: ICast[]
-}
 
-type ICast = {
-    name: string;
-    characterName: string;
-}
 const Movie = ({title,id, genres, setCurrentMovieID, currentMovieID}:IMovieProps) =>{
     //const [openDetail, setOpenDetail] = useState(false)
-    const [movieData, setMovieData] = useState<IMovieData>()
     const toggleDetails = () =>{
         currentMovieID === id ? setCurrentMovieID("") : setCurrentMovieID(id)
         
     }
-    const calculateDuration = ()=>{
-        let total = movieData?.duration ? movieData?.duration : 0
-        let hours = Math.floor(total / 3600);
-        total %= 3600;
-        let minutes = Math.floor(total / 60);
-        let seconds = total % 60;
-        return `${hours}hr(s) ${minutes} min ${seconds}sec`
-    }
-    useEffect(()=>{
-        fetch(`https://code-challenge.spectrumtoolbox.com/api/movies/${id}`,{
-            headers: {
-                Authorization: "Api-Key q3MNxtfep8Gt",
-                 }
-                }).then(res=> res.json()).then(data=> setMovieData(data.data))
-
-    },[id])
+    
     return <div className="movie-card" onClick={toggleDetails}>
         <img 
         className="movie-img" 
@@ -54,20 +25,7 @@ const Movie = ({title,id, genres, setCurrentMovieID, currentMovieID}:IMovieProps
         />
         {
             currentMovieID === id &&
-            <div className="movie-details">
-                <p>Genres: {genres.join(", ")}</p>
-                <p>Length: {calculateDuration()}</p>
-                <p>Release Date: {movieData?.releaseDate}</p>
-                <p>Release Year: {movieData?.releaseYear}</p>
-                <p>Description: {movieData?.description}</p>
-                <div> ~~ Casts ~~~
-                {
-                    movieData?.topCast.map(cast=>{
-                        return <p>{cast.characterName} played by {cast.name}</p>
-                    })
-                }
-                </div>
-            </div>
+            <MovieDetails id={id}/>
         }
         {
             currentMovieID !== id &&
