@@ -1,5 +1,5 @@
-import React, { FC, useState } from "react";
-
+import React, { FC, useState } from "react"
+import "./Searchbar.css"
 type IValues = {
   setValue: React.Dispatch<React.SetStateAction<string>>
 };
@@ -15,19 +15,12 @@ const Searchbar: FC<IValues> = ({ setValue }) => {
 
   return (
     <input
-      style={{
-        position: "fixed",
-        height: "2em",
-        width: "400px",
-        fontSize: "1.5em",
-        left: "40%",
-      }}
-      
+      className="searchbar"
       type="text"
       onChange={handleChange}
       value={search}
       placeholder="Search By Title..."
     ></input>
-  );
-};
+  )
+}
 export default Searchbar

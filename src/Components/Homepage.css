@@ -6,11 +6,40 @@
     display:flex;
 }
 .pagination-buttons{
+    position:absolute;
     display:flex;
-    justify-content: center;
     gap: 10px;
+    bottom: 2em;
+    left:50%;
+    font-size: 1.5em;
+    align-items: center;
+    justify-content: center;
+}
+.pagination-buttons > button{
+    border-radius: 100%;
+    width: 5em;
+    height: 5em;
+    cursor: pointer;
+    background-color: lightcyan;
+}
+.pagination-buttons > button:hover{
+    background-color: lightskyblue;
 }
 .layout{
     display:flex;
-    padding-top: 3em;
+    padding-top: 6em;
+}
+.layout-pagination{
+    display:flex;
+    padding-top: 6em;
+}
+.show-button{
+    position: absolute;
+    margin-left: 3em;
+    top: 5em;
+    width: 10em;
+    background-color: green;
+    color: white;
+    border-radius: 25px;
+    padding: 5px;
 }

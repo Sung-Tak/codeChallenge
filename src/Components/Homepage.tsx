@@ -14,12 +14,19 @@ export interface MovieInfo{
 }
 
 const Homepage = () =>{
+    //constructor
     const [data, setData] = useState<MovieInfo[]>([])
     const [movieList, setMovieList] = useState<MovieInfo[]>([])
+
+    //for filtering movies
     const [value, setValue] = useState<string>("")
     const [filter, setFilter] = useState<string[]>([])
     const [allGenres, setAllGenres] = useState<string[]>([])
+
+    //for opening only 1 movie detail at a time
     const [currentMovieID, setCurrentMovieID] = useState<string>("")
+
+    //for pagination
     const [usePagination, setUsePagination] = useState(false)
     const [currentPage, setCurrentPage] = useState<number>(0)
     const [perPage, setPerPage] = useState<number>(Math.floor((window.innerWidth-100)/220))
@@ -78,27 +85,18 @@ const Homepage = () =>{
 
     return <div className="home-container">
         <Searchbar setValue={setValue}/>
-        <div className="layout">
+        <div className={usePagination ? "layout-pagination" : "layout"}>
         <div className="filter-sidebar">
             <FilterGenre setFilter={setFilter} allGenres={allGenres}/>
         </div>
         <div className="movie-container">
-            <button onClick={()=> {
+            <button className="show-button" onClick={()=> {
                 setUsePagination(!usePagination) 
             }}
             >{usePagination ? "show all" : "show less"}</button>
         {
             usePagination ?
             <>
-            <div className="pagination-buttons">
-                    <button onClick={()=>{
-                        if(currentPage > 0) setCurrentPage(prev=>prev-1)
-                    }}>Prev</button>
-                    <p>{currentPage}/ {Math.floor(movieList.length/perPage)}</p>
-                    <button onClick={()=>{
-                        if(currentPage < Math.floor(movieList.length/perPage)) setCurrentPage(prev=>prev+1)
-                    }}>Next</button>
-                </div>
             <div className="movie-pagination">
                 <Suspense fallback={<h2>Loading...</h2>}>
                 {
@@ -110,6 +108,15 @@ const Homepage = () =>{
                     : <h1 className="no-results">no results were found</h1>
 
                 }</Suspense>
+            </div>
+            <div className="pagination-buttons">
+                <button onClick={()=>{
+                    if(currentPage > 0) setCurrentPage(prev=>prev-1)
+                }}>Prev</button>
+                <p>{currentPage+1}/ {Math.floor((movieList.length-1)/perPage)+1}</p>
+                <button onClick={()=>{
+                    if(currentPage < Math.floor((movieList.length-1)/perPage)) setCurrentPage(prev=>prev+1)
+                }}>Next</button>
             </div>
             </>
             :
