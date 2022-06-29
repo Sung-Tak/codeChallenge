@@ -16,8 +16,7 @@ const Homepage = () =>{
     const [value, setValue] = useState<string>("")
     const [filter, setFilter] = useState<string[]>([])
     const [allGenres, setAllGenres] = useState<string[]>([])
-    let isFiltered = false
-    let hasValue = false
+    const [currentMovieID, setCurrentMovieID] = useState<string>("")
     useEffect(()=>{
         fetch(
             "https://code-challenge.spectrumtoolbox.com/api/movies", {
@@ -56,7 +55,7 @@ const Homepage = () =>{
         <ul className="movie-container">
         {   (movieList.length !== 0) ?
            movieList.map((movie) => {        
-                return <Movie key={movie.id} {...movie} />
+                return <Movie key={movie.id} {...movie} setCurrentMovieID={setCurrentMovieID} currentMovieID={currentMovieID} />
             })
             : <h1 className="no-results">no results were found</h1>
         }
