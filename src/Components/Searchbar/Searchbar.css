@@ -1,0 +1,8 @@
+.searchbar{
+    position: fixed;
+    height: 2em;
+    width: 96%;
+    left:2%;
+    font-size: 1.5em;
+    z-index: 1;
+}
