@@ -1,6 +1,14 @@
-.movie-container{
+.movie-no-pagination{
     display:flex;
     flex-wrap:wrap;
+}
+.movie-pagination{
+    display:flex;
+}
+.pagination-buttons{
+    display:flex;
+    justify-content: center;
+    gap: 10px;
 }
 .layout{
     display:flex;

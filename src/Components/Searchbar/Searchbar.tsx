@@ -1,16 +1,16 @@
 import React, { FC, useState } from "react";
 
 type IValues = {
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>
 };
 
 const Searchbar: FC<IValues> = ({ setValue }) => {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //console.log(e.currentTarget.value)
-    setSearch(e.currentTarget.value);
-    setValue(e.currentTarget.value.toLowerCase());
+    setSearch(e.currentTarget.value)
+    setValue(e.currentTarget.value.toLowerCase())
   };
 
   return (
@@ -30,4 +30,4 @@ const Searchbar: FC<IValues> = ({ setValue }) => {
     ></input>
   );
 };
-export default Searchbar;
+export default Searchbar
