@@ -22,10 +22,6 @@
     
 }
 
-.movie-details{
-    overflow-y:scroll;
-}
-
 @keyframes popOut {
     from{
         transform:scale(1)
