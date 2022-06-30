@@ -3,8 +3,6 @@ import Searchbar from "./Searchbar/Searchbar"
 //import Movie from "./Movie"
 import FilterGenre from "./FilterGenre"
 import "./Homepage.css"
-import { arrayBuffer } from "stream/consumers"
-import { isElementAccessExpression } from "typescript"
 
 const Movie = lazy(()=> import("./Movie"))
 export interface MovieInfo{
@@ -14,11 +12,11 @@ export interface MovieInfo{
 }
 
 const Homepage = () =>{
-    //constructor
+    //initial data
     const [data, setData] = useState<MovieInfo[]>([])
-    const [movieList, setMovieList] = useState<MovieInfo[]>([])
-
+    
     //for filtering movies
+    const [movieList, setMovieList] = useState<MovieInfo[]>([])
     const [value, setValue] = useState<string>("")
     const [filter, setFilter] = useState<string[]>([])
     const [allGenres, setAllGenres] = useState<string[]>([])
@@ -55,7 +53,6 @@ const Homepage = () =>{
             }).then(res=> res.json()).then(movies=> {
                 setData(movies.data)
                 setMovieList(movies.data)
-                //console.log(movies.data)
                 let genres: string[] = []
                 movies.data.map((movieItem: any)=> movieItem.genres.map((genreItem: string)=> genres.push(genreItem)))
                 setAllGenres(genres.filter((genre, i, arr) => arr.indexOf(genre) === i))
@@ -74,13 +71,14 @@ const Homepage = () =>{
 
         setMovieList(
             data.filter(movieItem=>{
+                //any movie that includes at least one of the genres
                 //return movieItem.genres.every(genre=> filter.includes(genre)) && movieItem.title.toLowerCase().includes(value)
-                return filter.every(genre=> {
-                    return movieItem.genres.indexOf(genre) !== -1;
-                }) && movieItem.title.toLowerCase().includes(value)
+
+                ///only movies that include all the genres
+                return filter.every(genre=> movieItem.genres.indexOf(genre) !== -1) && movieItem.title.toLowerCase().includes(value)
             })
         )
-    }, [value, filter])
+    }, [value, filter, data])
 
 
     return <div className="home-container">
@@ -101,8 +99,7 @@ const Homepage = () =>{
                 <Suspense fallback={<h2>Loading...</h2>}>
                 {
                     (movieList.length !== 0 && perPage > 0) ? 
-                    movieList.slice(currentPage*perPage, currentPage*perPage+perPage).map((movie) => {    
-                        console.log(perPage*currentPage + " to "+ (currentPage*perPage+perPage))    
+                    movieList.slice(currentPage*perPage, currentPage*perPage+perPage).map((movie) => {     
                         return <Movie key={movie.id} {...movie} setCurrentMovieID={setCurrentMovieID} currentMovieID={currentMovieID} />
                     }) 
                     : <h1 className="no-results">no results were found</h1>

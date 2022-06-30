@@ -22,10 +22,10 @@ const MovieDetails:FC<IMovieDetailsProp> = ({id}) =>{
 
     const calculateDuration = ()=>{
         let total = movieData?.duration ? movieData?.duration : 0
-        let hours = Math.floor(total / 3600);
+        let hours = Math.floor(total / 3600)
         total %= 3600;
-        let minutes = Math.floor(total / 60);
-        let seconds = total % 60;
+        let minutes = Math.floor(total / 60)
+        let seconds = total % 60
         return `${hours}hr(s) ${minutes} min ${seconds}sec`
     }
 
